@@ -36,6 +36,15 @@ public class BoardDao {
 		return sqlSession.insert("Board.insertBoard", b);
 	}
 	
+	// expression = "execution(* com.kh.soomc..BoardDao.selectList()))"
+	// expression = "execution(* com.kh.soomc..*Dao.*()))"
+	// expression = "execution(* com.kh.soomc.board.model.dao.BoardDao.*()))"
+	// expression = "execution(* com.kh.soomc.board.model.dao.BoardDao.*(String)))"
+	// expression = "execution(* com.kh.soomc.board.model.dao.BoardDao.*(int, int)))"
+	// expression = "execution(* com.kh.soomc.board.model.dao.BoardDao.*(Board,..)))"
+	// expression = "execution(List<T> com.kh.soomc.board.model.dao.BoardDao.*(..)))"
+	// expression = "execution(* com.kh.soomc..Board*.update*(..)))"
+	
 	public int addReadCount(String board_num) {
 		return sqlSession.update("Board.addReadCount", board_num);
 	}

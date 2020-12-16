@@ -1,9 +1,11 @@
 package com.kh.soomc.board.model.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.soomc.board.model.dao.BoardDao;
 import com.kh.soomc.board.model.domain.Board;
@@ -43,13 +45,22 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+//	@Transactional
 	public Board updateBoard(Board b) {
+//		Board b1 = new Board("tx1", "tx1", "tx1", null, "tx1");
+//		int result1 = bDao.insertBoard(b1);
+		
 		int result = bDao.updateBoard(b);
 		if (result > 0) {
+			System.out.println("result 1 : " + result);
 			b = bDao.selectOne(b.getBoard_num());
 		} else {
+//			throw new MemberNotFoundException();
+			// 새로운 에러 만들기 : 캐치 부분에 넣어주면 된다.
+			System.out.println("result 2 : " + result);
 			b = null;
 		}
+		System.out.println("result 3 : " + result);
 		return b;
 	}
 

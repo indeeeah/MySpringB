@@ -1,14 +1,11 @@
 package com.kh.soomc.board.controller;
 
 import java.io.File;
-import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,11 +15,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.soomc.board.model.domain.Board;
 import com.kh.soomc.board.model.service.BoardReplyService;
 import com.kh.soomc.board.model.service.BoardService;
+import com.kh.soomc.test.MyTestComponent;
 
 @Controller
 public class BoardController {
 	@Autowired
 	private BoardService bService;
+
+	@Autowired
+	private MyTestComponent mytest01;
 
 	@Autowired
 	private BoardReplyService brService;
@@ -32,6 +33,14 @@ public class BoardController {
 	// 게시글 작성 페이지
 	@RequestMapping(value = "/writerForm.do", method = RequestMethod.GET)
 	public String boardInsertForm(ModelAndView mv) {
+		// DI
+//		//예전방식
+//		MyTestComponent tf = new MyTestComponent();
+//		tf.testFunc();
+		// DI 방식
+		mytest01.testFunc();
+		// 위에 autowired랑 mytestcomponent의 component 꼭 달아주기
+
 		return "board/writeForm"; // View페이지에서 작성 후 form action = "bInsert.do" 로 들어오도록 함.
 	}
 
@@ -87,6 +96,7 @@ public class BoardController {
 	@RequestMapping(value = "bDetail.do", method = RequestMethod.GET)
 	public ModelAndView boardDetail(@RequestParam(name = "board_num") String board_num,
 			@RequestParam(name = "page", defaultValue = "1") int page, ModelAndView mv) {
+		System.out.println("board_num : " + board_num);
 		try {
 			int currentPage = page;
 			mv.addObject("board", bService.selectBoard(0, board_num));
@@ -153,21 +163,22 @@ public class BoardController {
 
 	@RequestMapping(value = "bUpdate.do", method = RequestMethod.POST)
 	public ModelAndView boardUpdate(Board b, @RequestParam(name = "page", defaultValue = "1") int page,
-			@RequestParam("upfile") MultipartFile report, HttpServletRequest request, ModelAndView mv) {
+			@RequestParam(name = "upfile") MultipartFile report, HttpServletRequest request, ModelAndView mv) {
 		try {
-			if (report != null && !report.equals("")) {
+			if (report != null || !report.getOriginalFilename().equals("")) {
+//			if (report != null && !report.equals("")) {
+//				System.out.println(report.getName());   //  upfile
+//				System.out.println(report.getOriginalFilename());   // 선택된 filename
 				removeFile(b.getBoard_file(), request);
 				saveFile(report, request);
 				b.setBoard_file(report.getOriginalFilename());
 			}
-			if (bService.updateBoard(b) != null) {
-				mv.addObject("board_num", bService.updateBoard(b).getBoard_num());
-				mv.addObject("currentPage", page);
-				mv.setViewName("redirect:bDetail.do");
-			} else {
-				// 이전화면으로 이동
-			}
+//				b.setBoard_file(report.getOriginalFilename());
+			mv.addObject("board_num", bService.updateBoard(b).getBoard_num());
+			mv.addObject("currentPage", page);
+			mv.setViewName("redirect:bDetail.do");
 		} catch (Exception e) {
+			System.out.println("실패 transaction 실패");
 			mv.addObject("msg", e.getMessage());
 			mv.setViewName("errorPage");
 		}

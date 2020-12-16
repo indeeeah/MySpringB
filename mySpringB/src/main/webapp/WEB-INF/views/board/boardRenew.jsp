@@ -11,7 +11,7 @@
 	rel="stylesheet" type="text/css" />
 <body bgcolor="#FFEFD5">
 	<form name="renewForm" action="bUpdate.do" method="post"
-		enctype="multipart/form- data">
+		enctype="multipart/form-data">
 		<input type="hidden" name="board_num" value="${board.board_num}">
 		<input type="hidden" name="board_file" value="${board.board_file}">
 		<table align="center">
