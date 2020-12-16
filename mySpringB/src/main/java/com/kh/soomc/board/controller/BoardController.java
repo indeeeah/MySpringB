@@ -96,7 +96,7 @@ public class BoardController {
 	@RequestMapping(value = "bDetail.do", method = RequestMethod.GET)
 	public ModelAndView boardDetail(@RequestParam(name = "board_num") String board_num,
 			@RequestParam(name = "page", defaultValue = "1") int page, ModelAndView mv) {
-		System.out.println("board_num : " + board_num);
+		//System.out.println("board_num : " + board_num);
 		try {
 			int currentPage = page;
 			mv.addObject("board", bService.selectBoard(0, board_num));

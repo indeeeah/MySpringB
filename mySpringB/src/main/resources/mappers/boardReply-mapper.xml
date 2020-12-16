@@ -29,7 +29,7 @@
 		flushCache="true" statementType="PREPARED" timeout="20">
 		insert into
 		board_comment
-		values('BR'||to_char(SYSDATE,'RRMMDD')||LPAD(board_comment_seqnextval,2,'0'),
+		values('BR'||TO_CHAR(SYSDATE,'RRMMDD')||LPAD(BOARD_COMMENT_SEQ.NEXTVAL,2,'0'),
 		#{board_num}, #{comment_name}, #{comment_pwd}, #{comments}, SYSDATE)
 	</insert>
 

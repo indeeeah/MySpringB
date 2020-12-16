@@ -34,6 +34,7 @@ public class BoardReplyController {
 		} catch (Exception e) {
 			mv.addObject("msg", e.getMessage());
 			mv.setViewName("errorPage");
+			e.printStackTrace();
 		}
 		return mv;
 	}
