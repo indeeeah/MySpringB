@@ -47,8 +47,10 @@ public class BoardReplyController {
 			job.put("ack", brService.updateBoardReply(br));
 			out = response.getWriter();
 			out.append(job.toJSONString());
+			System.out.println("캐치로는 안갔다 댓글수정");
 		} catch (Exception e) {
 			job.put("ack", -1);
+			e.printStackTrace();
 		} finally {
 			out.flush();
 			out.close();

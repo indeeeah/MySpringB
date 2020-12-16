@@ -61,7 +61,7 @@
 				<h4 class="comment-head">작성자 : ${rep.comment_name} &nbsp;
 					&nbsp;작성일 : ${rep.regdate}</h4>
 				<div class="comment-body">
-					<p>내용 : ${rep.comments}</p>
+					내용 : <p>${rep.comments}</p>
 				</div>
 				<div class="comment-confirm" style="display: none;">
 					비밀번호 확인 : <input type="password" name="pwd_chk">
@@ -73,8 +73,7 @@
 					<button type="button" class="delete" name="delete" id="delete"
 						style="display: none;">삭제하기</button>
 					&nbsp;&nbsp;&nbsp;
-					<button type="button" class="update" name="update" id="update">수
-						정 및 삭제</button>
+					<button type="button" class="update" name="update" id="update">수정 및 삭제</button>
 				</p>
 			</div>
 			<br>
@@ -111,7 +110,8 @@
 			if($('#reply_contents').val() == ""){
 				alert("내용을 입력해주세요."); event.preventDefault();
 			} else {
-				$('#comments').val($('#reply_contents').val()); return true;
+				$('#comments').val($('#reply_contents').val());
+				return true;
 			} 
 		});
 		
@@ -124,9 +124,10 @@
 			if($(this).text() == "수정 및 삭제"){
 				commBody.append('<textarea style="margin-top:7px;" rows="4" cols="70%" class="updateContent" name="updateContent" id="updateContent">'+content+'</textarea>');
 				parentDiv.children('.comment-confirm').show();
-				parentP.children(".delete").toggle("fast"); parentP.children(".updateConfirm").toggle("fast");
+				parentP.children(".delete").toggle("fast"); 
+				parentP.children(".updateConfirm").toggle("fast");
 				$(this).text("수정취소");
-			} else {
+			} else if($(this).text()=="수정취소"){
 				commBody.children(".updateContent").remove();
 				parentDiv.children('.comment-confirm').hide();
 				$(this).text("수정 및 삭제");
@@ -143,7 +144,8 @@
 				return false; 
 			} else {
 				$.ajax({
-				url : "${pageContext.request.contextPath}/brUpdate.do", method : "POST",
+				url : "${pageContext.request.contextPath}/brUpdate.do",
+				method : "POST",
 				async : false,
 				data: {
 					comment_id : parentDiv.find("input[name=rep_id]").val(),
@@ -191,43 +193,5 @@
 		});
 	});	
 	
-		</script>
+</script>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
