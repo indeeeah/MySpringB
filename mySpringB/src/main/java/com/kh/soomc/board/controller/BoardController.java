@@ -165,7 +165,7 @@ public class BoardController {
 	public ModelAndView boardUpdate(Board b, @RequestParam(name = "page", defaultValue = "1") int page,
 			@RequestParam(name = "upfile") MultipartFile report, HttpServletRequest request, ModelAndView mv) {
 		try {
-			if (report != null || !report.getOriginalFilename().equals("")) {
+			if (report != null && !report.getOriginalFilename().equals("")) {
 //			if (report != null && !report.equals("")) {
 //				System.out.println(report.getName());   //  upfile
 //				System.out.println(report.getOriginalFilename());   // 선택된 filename
