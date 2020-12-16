@@ -34,14 +34,14 @@
 	<hr>
 	<p align="center">
 	<h3>게 시 판</h3>
-	<form method="get" name="listForm" action="blist.do">
+	<form method="get" name="listForm" action="bList.do">
 		<input type="hidden" name="page" value="${currentPage}"> <input
 			type="text" name="keyword"> <input type="submit" value="검색">
 	</form>
 	<table>
 		<tr>
 			<td align="right" colspan="5"><input type="button" value="전체목록"
-				onclick="window.location='blist.do'"> <input type="button"
+				onclick="window.location='bList.do'"> <input type="button"
 				value="글쓰기" onclick="window.location='writerForm.do'"></td>
 		</tr>
 		<tr bgcolor="#FFD1B7">
@@ -76,7 +76,7 @@
 		<tr align="center" height="20">
 			<td colspan="5"><c:if test="${currentPage <= 1}">
 [이전]&nbsp; </c:if> <c:if test="${currentPage > 1}">
-					<c:url var="blistST" value="blist.do">
+					<c:url var="blistST" value="bList.do">
 						<c:param name="page" value="${currentPage-1}" />
 					</c:url>
 					<a href="${blistST}">[이전]</a>
@@ -86,14 +86,14 @@
 						<font color="red" size="4"><b>[${p}]</b></font>
 					</c:if>
 					<c:if test="${p ne currentPage}">
-						<c:url var="blistchk" value="blist.do">
+						<c:url var="blistchk" value="bList.do">
 							<c:param name="page" value="${p}" />
 						</c:url>
 						<a href="${blistchk}">${p}</a>
 					</c:if>
 				</c:forEach> <c:if test="${currentPage >= maxPage}"> [다음]
 </c:if> <c:if test="${currentPage < maxPage}">
-					<c:url var="blistEND" value="blist.do">
+					<c:url var="blistEND" value="bList.do">
 						<c:param name="page" value="${currentPage+1}" />
 					</c:url>
 					<a href="${blistEND}">[다음]</a>

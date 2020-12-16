@@ -22,8 +22,8 @@ public class BoardController {
 	@Autowired
 	private BoardService bService;
 
-	@Autowired
-	private MyTestComponent mytest01;
+	//@Autowired
+	//private MyTestComponent mytest01;
 
 	@Autowired
 	private BoardReplyService brService;
@@ -38,7 +38,7 @@ public class BoardController {
 //		MyTestComponent tf = new MyTestComponent();
 //		tf.testFunc();
 		// DI 방식
-		mytest01.testFunc();
+		//mytest01.testFunc();
 		// 위에 autowired랑 mytestcomponent의 component 꼭 달아주기
 
 		return "board/writeForm"; // View페이지에서 작성 후 form action = "bInsert.do" 로 들어오도록 함.
